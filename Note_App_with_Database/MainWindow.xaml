@@ -1,0 +1,88 @@
+﻿<Window x:Class="Note_App_with_Database.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:q="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Note_App_with_Database"
+        mc:Ignorable="d"
+        Title="Notas" SizeToContent="WidthAndHeight" Background="LightGray" ResizeMode="NoResize">
+    <!--Primera pagina-->
+    <TabControl>
+        <TabItem Name="NuevasYPendientesTab" Header="Nuevas y pendientes" Background="LightGray">
+            <Grid Background="LightGray">
+                <!--creacion de las separaciones por columnas-->
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="300"/>
+
+                </Grid.ColumnDefinitions>
+
+                <!--primera columna-->
+                <TextBlock Text="Titulo" HorizontalAlignment="Center" FontSize="11" FontStretch="Expanded" Height="15" Width="200" Background="White" VerticalAlignment="Top" Margin="0,25,0,0"/>
+                <TextBox Name="Titulo_Box" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="15" Margin="0,50,0,0" />
+                <TextBlock Text="Nota" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="15" Margin="0,75" Background="White" FontSize="11"/>
+                <TextBox Name="Nota_box" Width="200" Height="100" VerticalAlignment="Top" Margin="0,100"/>
+                <TextBlock Name="Clock_box" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,261,0,0" Height="15" />
+                <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Guardar Nota" Margin="50,0,0,153" Click="Guardar_Click" Grid.ColumnSpan="2"/>
+
+                <!--segunda columna-->
+                <Border Grid.Column="4" Height="15" Background="White" Margin="10,25,10,394">
+                    <TextBlock Text="Notas ingresadas" HorizontalAlignment="Center" FontSize="11" FontStretch="Expanded" />
+                </Border>
+                <ListView Name="Note_List" Grid.Column="4" HorizontalAlignment="Center" Width="280" Margin="0,40,0,0" Height="327" VerticalAlignment="Top" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding date}" Header="Fecha"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding title}" Header="Titulo"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Top" Content="Archivar" Margin="0,394,0,0" Click="Archivar_Click" Grid.Column="1" Width="50"/>
+                <Button VerticalAlignment="Bottom" Content="Borrar" Margin="0,0,10,20" Click="Borrar_Click" Grid.Column="1" HorizontalAlignment="Right" Width="50"/>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="Mostrar" Margin="10,394,0,0" Click="Mostrar_notas_de_pendientes_Click" Grid.Column="1" Width="50"/>
+            </Grid>
+        </TabItem>
+
+
+        <!--Segunda pagina-->
+        <TabItem Name="guardadosYBorradosTab" Header="Borrados y guardados" Background="LightGray">
+            <Grid Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+
+                <!--tercera columna-->
+                <Border Grid.Column="0" Height="15" Background="White" Margin="10,25,10,394">
+                    <TextBlock Text="Notas archivadas" HorizontalAlignment="Center" FontSize="11" FontStretch="Expanded"/>
+                </Border>
+                <ListView Name="Archive_Notes" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="350" Width="280" Margin="0,40,0,0" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding date}" Header="Creado"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding title}" Header="Titulo"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding FinishDate}" Header="Archivado"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Top" Content="Mostrar" Margin="0,394,0,0" Click="Mostrar_notas_archivadas_Click" Grid.Column="0" Width="50"/>
+
+                <!--Cuarta Columna-->
+                <Border Grid.Column="1" Height="15" Background="White" Margin="10,25,10,394">
+                    <TextBlock Text="Notas Borradas" HorizontalAlignment="Center" FontSize="11" FontStretch="Expanded"/>
+                </Border>
+                <ListView Name="Deleted_Notes" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="350" Width="280" Margin="0,40,0,0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding date}" Header="Date"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding title}" Header="Titulo"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding FinishDate}" Header="Eliminado"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Top" Content="Mostrar" Margin="0,394,0,0" Click="Mostrar_notas_borradas_Click" Grid.Column="1" Width="50"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>   
