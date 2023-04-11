@@ -25,13 +25,15 @@ namespace Note_App_with_Database
     public partial class MainWindow : Window
     {
         LinqToSqlDataClassesDataContext dataContext;
-  
+        string connectionString;
+
+
 
         public MainWindow()
         {
             InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["Note_App_with_Database.Properties.Settings.forpracticeConnectionString"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["Note_App_with_Database.Properties.Settings.forpracticeConnectionString"].ConnectionString;
             dataContext = new LinqToSqlDataClassesDataContext(connectionString);
             reloj();
             MostrarNotas();
@@ -39,7 +41,7 @@ namespace Note_App_with_Database
 
         private void MostrarNotas()
         {
-            ListaDeTitulosPendientes.ItemsSource = null;
+            dataContext = new LinqToSqlDataClassesDataContext(connectionString);
             ListaDeTitulosPendientes.ItemsSource = dataContext.Notas;
         }
 
@@ -60,13 +62,9 @@ namespace Note_App_with_Database
             Titulo_Box.Clear();
             Nota_box.Clear();
             ListaDeTitulosPendientes.Items.Refresh();
+            MostrarNotas();
         }
-        private void ContadorActualizar(object sender, RoutedEventArgs e)
-        {
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(5);
-            dispatcherTimer.Start();
-        }
+
         private void reloj()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -79,7 +77,21 @@ namespace Note_App_with_Database
         {
             Clock_box.Text = DateTime.Now.ToString();
             Clock_box2.Text = DateTime.Now.ToString();
+        }
+
+        private void ListaDeTitulosPendientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Actualizar_Click(object sender, RoutedEventArgs e)
+        {
             MostrarNotas();
+        }
+
+        private void Archivar_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
