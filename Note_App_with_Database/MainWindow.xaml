@@ -22,19 +22,25 @@
                 <ListView x:Name="ListaDeTitulosPendientes" Grid.Column="0"  Width="280" Height="300" HorizontalAlignment="Left" Margin="0,20" SelectionChanged="ListaDeTitulosPendientes_SelectionChanged">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Hora}" Header="Fecha"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Titulo}" Header="Titulo"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Hora}" Header="Fecha" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Titulo}" Header="Titulo" Width="200"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="Actualizar" Content="Actualizar" Height="20" VerticalAlignment="Bottom" Width="280" HorizontalAlignment="Left" Grid.Column="0" Click="Actualizar_Click"/>
+                <Button x:Name="Actualizar" Content="Actualizar" Height="20" VerticalAlignment="Bottom" Width="280" HorizontalAlignment="Left" Grid.Column="0"/>
                 
                 
                 <!-- Segunda Columna-->
-                <TextBlock x:Name="CuerpoDeLaNotaPendiente" Grid.Column="1" HorizontalAlignment="Right" Width="280" Height="300"/>
-                <Button x:Name="Archivar" Content="Archivar" Grid.Column="1" HorizontalAlignment="Right" Height="20" Width="280" VerticalAlignment="Bottom" Click="Archivar_Click"/>
+                <ListView x:Name="CuerpoDeLaNotaPendiente" Grid.Column="1"  Width="280" Height="300" HorizontalAlignment="Right" Margin="0,20">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Nota1}" Header="Nota"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <!--<TextBlock x:Name="CuerpoDeLaNotaPendiente" Grid.Column="1" HorizontalAlignment="Right" Width="280" Height="300"/>-->
+                <Button x:Name="Archivar" Content="Archivar" Grid.Column="1" HorizontalAlignment="Right" Height="20" Width="280" VerticalAlignment="Bottom" />
                 <TextBlock Name="ClockBoxPagina1" HorizontalAlignment="Right" VerticalAlignment="Top" Height="15" Grid.Column="1"/>
-                <TextBlock Name="Clock_box2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="15" Grid.Column="1" />
             </Grid>
         </TabItem> 
     <!-- Fin Primera Pagina -->

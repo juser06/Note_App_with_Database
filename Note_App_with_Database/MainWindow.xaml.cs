@@ -16,6 +16,7 @@ using System.Configuration;
 using System.Data;
 using Note_App_with_Database.forpracticeDataSetTableAdapters;
 using System.Windows.Threading;
+using System.Data.SqlClient;
 
 namespace Note_App_with_Database
 {
@@ -76,22 +77,12 @@ namespace Note_App_with_Database
         private void tickevent(object sender, EventArgs e)
         {
             Clock_box.Text = DateTime.Now.ToString();
-            Clock_box2.Text = DateTime.Now.ToString();
+            ClockBoxPagina1.Text = DateTime.Now.ToString();
         }
 
         private void ListaDeTitulosPendientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
-        {
-            MostrarNotas();
-        }
-
-        private void Archivar_Click(object sender, RoutedEventArgs e)
-        {
-            
+            CuerpoDeLaNotaPendiente.ItemsSource = dataContext.Notas;
         }
     }
 }
