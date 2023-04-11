@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.Data;
 using Note_App_with_Database.forpracticeDataSetTableAdapters;
+using System.Windows.Threading;
 
 namespace Note_App_with_Database
 {
@@ -32,6 +33,7 @@ namespace Note_App_with_Database
 
             string connectionString = ConfigurationManager.ConnectionStrings["Note_App_with_Database.Properties.Settings.forpracticeConnectionString"].ConnectionString;
             dataContext = new LinqToSqlDataClassesDataContext(connectionString);
+            reloj();
             MostrarNotas();
         }
 
@@ -57,6 +59,27 @@ namespace Note_App_with_Database
             ListaDeTitulosPendientes.Items.Refresh();
             Titulo_Box.Clear();
             Nota_box.Clear();
+            ListaDeTitulosPendientes.Items.Refresh();
+        }
+        private void ContadorActualizar(object sender, RoutedEventArgs e)
+        {
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(5);
+            dispatcherTimer.Start();
+        }
+        private void reloj()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += tickevent;
+            timer.Start();
+        }
+
+        private void tickevent(object sender, EventArgs e)
+        {
+            Clock_box.Text = DateTime.Now.ToString();
+            Clock_box2.Text = DateTime.Now.ToString();
+            MostrarNotas();
         }
     }
 }
