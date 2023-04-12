@@ -79,7 +79,8 @@ namespace Note_App_with_Database
             Clock_box.Text = DateTime.Now.ToString();
             ClockBoxPagina1.Text = DateTime.Now.ToString();
         }
-
+        
+        
         private void ListaDeTitulosPendientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CuerpoDeLaNotaPendiente.ItemsSource = dataContext.Notas;

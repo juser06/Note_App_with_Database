@@ -31,6 +31,7 @@
                 
                 
                 <!-- Segunda Columna-->
+                <!-- tendria que volver a usar el textblock, porque unicamente quiero mostrar un texto, no una lista-->
                 <ListView x:Name="CuerpoDeLaNotaPendiente" Grid.Column="1"  Width="280" Height="300" HorizontalAlignment="Right" Margin="0,20">
                     <ListView.View>
                         <GridView>
