@@ -27,6 +27,7 @@ namespace Note_App_with_Database
     {
         LinqToSqlDataClassesDataContext dataContext;
         string connectionString;
+        Nota selectedItem;
 
 
 
@@ -43,7 +44,9 @@ namespace Note_App_with_Database
         private void MostrarNotas()
         {
             dataContext = new LinqToSqlDataClassesDataContext(connectionString);
-            ListaDeTitulosPendientes.ItemsSource = dataContext.Notas;
+            var notasActivas = from nota in dataContext.Notas where nota.Pendiente_Archivado == true select nota;
+            ListaDeTitulosPendientes.ItemsSource = notasActivas;
+
         }
 
         private void Guardar_Click(object sender, RoutedEventArgs e)
@@ -59,10 +62,8 @@ namespace Note_App_with_Database
             nota.Pendiente_Archivado = true;
             dataContext.Notas.InsertOnSubmit(nota);
             dataContext.SubmitChanges();
-            ListaDeTitulosPendientes.Items.Refresh();
             Titulo_Box.Clear();
             Nota_box.Clear();
-            ListaDeTitulosPendientes.Items.Refresh();
             MostrarNotas();
         }
 
@@ -82,7 +83,11 @@ namespace Note_App_with_Database
 
         private void ListaDeTitulosPendientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CuerpoDeLaNotaPendiente.ItemsSource = dataContext.Notas;
+            selectedItem = (Nota)ListaDeTitulosPendientes.SelectedItem;
+            if (selectedItem != null)
+            {
+                CuerpoDeLaNotaPendiente.Text = selectedItem.Nota1;
+            }
         }
     }
 }
