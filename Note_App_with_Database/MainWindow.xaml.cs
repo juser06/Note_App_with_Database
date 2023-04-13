@@ -25,11 +25,11 @@ namespace Note_App_with_Database
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        //variables globales
         LinqToSqlDataClassesDataContext dataContext;
         string connectionString;
         Nota selectedItem;
-
-
 
         public MainWindow()
         {
@@ -41,12 +41,14 @@ namespace Note_App_with_Database
             MostrarNotas();
         }
 
+        //actualiza el contenido
         private void MostrarNotas()
         {
-            dataContext = new LinqToSqlDataClassesDataContext(connectionString);
+            //dataContext = new LinqToSqlDataClassesDataContext(connectionString);
             var notasActivas = from nota in dataContext.Notas where nota.Pendiente_Archivado == true select nota;
             ListaDeTitulosPendientes.ItemsSource = notasActivas;
-
+            var notasArchivadas = from nota in dataContext.Notas where nota.Pendiente_Archivado == false select nota;
+            ListaDeTitulosArchivados.ItemsSource = notasArchivadas;
         }
 
         private void Guardar_Click(object sender, RoutedEventArgs e)
@@ -60,6 +62,7 @@ namespace Note_App_with_Database
             nota.Nota1 = Nota_box.Text;
             nota.Hora = DateTime.Now.ToString();
             nota.Pendiente_Archivado = true;
+            nota.Hora_Archivado = "";
             dataContext.Notas.InsertOnSubmit(nota);
             dataContext.SubmitChanges();
             Titulo_Box.Clear();
@@ -79,6 +82,7 @@ namespace Note_App_with_Database
         {
             Clock_box.Text = DateTime.Now.ToString();
             ClockBoxPagina1.Text = DateTime.Now.ToString();
+            ClockBoxPagina3.Text = DateTime.Now.ToString();
         }
         
         
@@ -89,6 +93,24 @@ namespace Note_App_with_Database
             {
                 CuerpoDeLaNotaPendiente.Text = selectedItem.Nota1;
             }
+        }
+
+        private void ListaDeTituloArchivados_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedItem = (Nota)ListaDeTitulosArchivados.SelectedItem;
+            if (selectedItem != null)
+            {
+                CuerpoDeLaNotaArchivada.Text = selectedItem.Nota1;
+            }
+        }
+
+        private void Archivar_Click(object sender, RoutedEventArgs e)
+        {
+            Nota actualizar = dataContext.Notas.Single(r=> r.Id == selectedItem.Id);
+            actualizar.Pendiente_Archivado = false;
+            actualizar.Hora_Archivado = DateTime.Now.ToString();
+            dataContext.SubmitChanges();
+            MostrarNotas();
         }
     }
 }
